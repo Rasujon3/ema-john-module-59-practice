@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const navigate = useNavigate();
 
   const handleEmailBlur = (event) => {
     setEmail(event.target.value);
@@ -17,6 +18,10 @@ const Login = () => {
   const handlePasswordBlur = (event) => {
     setPassword(event.target.value);
   };
+
+  if (user) {
+    navigate("/shop");
+  }
 
   const handleUserSignIn = (event) => {
     event.preventDefault();
